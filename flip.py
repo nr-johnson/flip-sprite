@@ -16,30 +16,37 @@ if (not file_exists):
     print('Error: Invalid file path')
     quit()
 
+filetype = args[1][-3:len(args[1])]
+
+if (not filetype == 'png' and not filetype == 'jpg' and not filetype == 'jpeg'):
+    print(f'Error: Filetype mus be PNG or JPEG. Instead got {filetype}')
+    quit()
+
 img = Image.open(args[1])
 
 if (not img):
     print('Error: Could not load image')
     quit()
 
-rows = int(args[2]) - 1
-cols = int(args[3]) - 1
-
+rows = int(args[2])
+cols = int(args[3])
+print(rows, cols)
 width = int(img.size[0])
 height = int(img.size[1])
-frameW = width / (rows + 1)
-frameH = height / (cols + 1)
+frameW = int(width / cols)
+frameH = int(height / rows)
 
 print(f'Width: {width}, Height: {height}, FW: {frameW}, FH: {frameH}')
 
-new_filename = f'{args[1][0:-4]}_flipped{args[1][-4:len(args[1])]}'
+new_filename = f'{args[1][0:-4]}_flipped.{filetype}'
 
-def invertFrame(col, row):
+def invertFrame(row, col):
     arr = np.array(img)
-    col = int(col * frameH)
     row = int(row * frameW)
-    colE = int(col+frameH)
+    col = int(col * frameH)
+    
     rowE = int(row+frameW)
+    colE = int(col+frameH)
 
     frame = Image.fromarray(arr[row:rowE, col:colE]).transpose(method=Image.FLIP_LEFT_RIGHT)
 
@@ -51,7 +58,9 @@ def invertFrame(col, row):
 
 for i in range(rows):
     for j in range(cols):
-        img = invertFrame(j, i)
+        img = invertFrame(i, j)
+
+
 
 img.save(new_filename)
 
