@@ -2,7 +2,7 @@
 
 This program is pretty simple.
 
-It takes a sprite sheet and flips each frame horizontally. This allows the use of the same frame references when flipping a sprite.
+It takes a sprite sheet and flips each frame horizontally. This allows the use of the same frame references when using a flipped sprite in a game.
 
 ## Usage:
 
