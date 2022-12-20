@@ -59,12 +59,12 @@ def invertFrame(row, col):
     arr = np.array(img)
 
     # Location of frame start point within the array
-    row = int(row * frameW)
-    col = int(col * frameH)
+    row = int(row * frameH)
+    col = int(col * frameW)
     
     # Location of frame end point within the array
-    rowE = int(row+frameW)
-    colE = int(col+frameH)
+    rowE = int(row + frameH)
+    colE = int(col + frameW)
 
     # Converts the frame to an image and flips it
     frame = Image.fromarray(arr[row:rowE, col:colE]).transpose(method=Image.FLIP_LEFT_RIGHT)
